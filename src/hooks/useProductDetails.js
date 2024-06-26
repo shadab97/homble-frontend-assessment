@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getRequest } from "../axios";
+import { toast } from "react-toastify";
 
 const useProductDetails = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const useProductDetails = () => {
           setProduct({});
         })
         .finally(() => {
+          toast.error("Error in fetching product");
           setIsLoading(false);
         });
     }

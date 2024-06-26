@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Spinner } from "react-bootstrap";
+import useAddNewProduct from "../hooks/useAddNewProduct";
 
 function AddNewProductModal() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleAddNeProduct = (e) => {
-    e.preventDefault();
-    console.log("hi");
-  };
-
+  const {
+    show,
+    loading,
+    handleShow,
+    errorState,
+    handleClose,
+    handleAddNeProduct,
+    handleSetFormState,
+  } = useAddNewProduct();
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -24,35 +24,53 @@ function AddNewProductModal() {
         <Modal.Body>
           <Form onSubmit={handleAddNeProduct}>
             <Form.Group className="mb-3">
-              <Form.Label>Product Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter product name" />
-              <Form.Text className="text-muted">Name of your Product</Form.Text>
+              <Form.Label htmlFor="name">Product Name</Form.Label>
+              <Form.Control
+                name="name"
+                onChange={handleSetFormState}
+                type="text"
+                placeholder="Enter product name"
+              />
+              <Form.Text id="name" className="text-muted">
+                Name of your Product
+              </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Description</Form.Label>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="description">Description</Form.Label>
               <Form.Control
                 type="textarea"
+                name="description"
+                onChange={handleSetFormState}
                 placeholder="Enter product description"
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Allergen info</Form.Label>
+              <Form.Label htmlFor="allergen_info">Allergen info</Form.Label>
               <Form.Control
                 type="textarea"
+                name="allergen_info"
+                onChange={handleSetFormState}
                 placeholder="Enter product allergen info"
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Check
-                type="checkbox"
-                label="Are you sure you want to create a new product"
-              />
-            </Form.Group>
-            <Button size="lg" variant="primary" type="submit">
-              Submit
+
+            <Button
+              disabled={loading}
+              size="lg"
+              variant="primary"
+              type="submit"
+            >
+              {loading ? (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </Form>
+          <p className="error">{errorState}</p>
         </Modal.Body>
       </Modal>
     </>
