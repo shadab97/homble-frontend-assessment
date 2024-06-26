@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { getRequest } from "../axios";
+import { toast } from "react-toastify";
+import useFetch from "./useFetch";
 
 const useGetAllProduct = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { loading, data, error, refetch } = useFetch({
+    url: "/products",
+    onError,
+    onSuccess,
+  });
+  function onError(err) {
+    if (err) {
+      toast.error("data fetched failed");
+    }
+  }
+  function onSuccess(data) {
+    toast.success("data fetched successfully");
+    const productSortedBySellingPrice = data?.sort(
+      (a, b) => a.selling_price - b.selling_price
+    );
+    return productSortedBySellingPrice;
+  }
 
-  useEffect(() => {
-    setIsLoading(true);
-    getRequest("/products")
-      .then((products) => {
-        const productSortedBySellingPrice = products?.data?.sort(
-          (a, b) => a.selling_price - b.selling_price
-        );
-        setProducts(productSortedBySellingPrice);
-      })
-      .catch(() => {
-        setProducts([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
   return {
-    products,
-    isLoading,
+    products: data,
+    isLoading: loading,
   };
 };
 

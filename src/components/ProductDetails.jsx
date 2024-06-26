@@ -48,21 +48,21 @@ const ProductDetails = () => {
         {isLoading !== true ? (
           <>
             <Col lg={6} className="mb-4">
-              <Image fluid src={product.productImage} alt={product.name} />
+              <Image fluid src={product?.productImage} alt={product?.name} />
             </Col>
             <Col lg={6}>
-              <h2>{product.name}</h2>
+              <h2>{product?.name}</h2>
               <p>
-                <strong>Cost Price:</strong> ${product.cost_price}
+                <strong>Cost Price:</strong> ${product?.cost_price}
               </p>
               <p>
-                <strong>Selling Price:</strong> ${product.selling_price}
+                <strong>Selling Price:</strong> ${product?.selling_price}
               </p>
-              <Accordion alwaysOpen defaultActiveKey="0">
-                {accordianArray.map((each) => (
-                  <Accordion.Item key={each.name} eventKey={each.name}>
-                    <Accordion.Header>{each.name}</Accordion.Header>
-                    <Accordion.Body>{each.value}</Accordion.Body>
+              <Accordion alwaysOpen>
+                {accordianArray?.map((each) => (
+                  <Accordion.Item key={each?.name} eventKey={each?.name}>
+                    <Accordion.Header>{each?.name}</Accordion.Header>
+                    <Accordion.Body>{each?.value}</Accordion.Body>
                   </Accordion.Item>
                 ))}
               </Accordion>

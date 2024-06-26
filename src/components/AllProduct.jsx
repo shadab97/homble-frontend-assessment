@@ -64,7 +64,7 @@ const AllProduct = () => {
     <Container>
       <Row>
         {isLoading !== true ? (
-          products.map((product) => (
+          products?.map((product) => (
             <Col key={product.id} xs={12} md={6} lg={4} className="mb-4">
               <ProductCard product={product} />
             </Col>

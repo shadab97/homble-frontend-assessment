@@ -1,26 +1,23 @@
-import { useEffect, useState } from "react";
-import { getRequest } from "../axios";
+import { toast } from "react-toastify";
+import useFetch from "./useFetch";
 
 const useDashboard = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getRequest("/dashboard")
-      .then((products) => {
-        setProducts(products.data);
-      })
-      .catch(() => {
-        setProducts([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const { loading, data, error, refetch } = useFetch({
+    url: "/dashboard",
+    onError,
+    onSuccess,
+  });
+  function onError(err) {
+    if (err) {
+      toast.error("data fetched failed");
+    }
+  }
+  function onSuccess(data) {
+    toast.success("data fetched successfully");
+  }
   return {
-    products,
-    isLoading,
+    products: data,
+    isLoading: loading,
   };
 };
 

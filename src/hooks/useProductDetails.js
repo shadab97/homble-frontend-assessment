@@ -1,50 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getRequest } from "../axios";
 import { toast } from "react-toastify";
+import useFetch from "./useFetch";
 
 const useProductDetails = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      setIsLoading(true);
-      getRequest(`/products/${id}`)
-        .then((products) => {
-          toast.success("product fetched successfully");
-          setProduct(products.data);
-        })
-        .catch(() => {
-          toast.error("Error in fetching product");
-          setProduct({});
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+  const { loading, data, error, refetch } = useFetch({
+    url: `/products/${id}`,
+    onError,
+    onSuccess,
+  });
+  function onError(err) {
+    if (err) {
+      toast.error("data fetched failed");
     }
-  }, [id]);
+  }
+  function onSuccess(data) {
+    toast.success("data fetched successfully");
+  }
 
   const accordianArray = [
     {
       name: "Description",
-      value: product.description,
+      value: data?.description,
     },
     {
       name: "Allergen information",
-      value: product.allergen_info,
+      value: data?.allergen_info,
     },
     {
       name: "Cooking instruction",
-      value: product.cooking_instruction,
+      value: data?.cooking_instruction,
     },
   ];
 
   return {
     accordianArray,
-    product,
-    isLoading,
+    product: data,
+    isLoading: loading,
   };
 };
 
