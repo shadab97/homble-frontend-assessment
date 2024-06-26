@@ -3,11 +3,7 @@ import AllProduct from "../components/AllProduct";
 
 const Home = () => {
   return (
-    <div style={{ padding: 20 }}>
-      <ul>
-        <li> create button</li>
-        <li>Page 3 - Product dashboard</li>
-      </ul>
+    <div>
       <AllProduct />
     </div>
   );

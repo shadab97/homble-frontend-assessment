@@ -6,8 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <AppRouter />
+      {/* <Navbar /> */}
+      <AppRouter>
+        <Navbar />
+      </AppRouter>
       <ToastContainer />
     </div>
   );

@@ -13,7 +13,7 @@ function AddNewProductModal() {
   } = useAddNewProduct();
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button size="sm" variant="primary" onClick={handleShow}>
         Add New Product
       </Button>
 

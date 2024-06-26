@@ -42,7 +42,6 @@ const useAddNewProduct = () => {
     // formState
     await postRequest("/products", formState)
       .then((data) => {
-        console.log("data", data);
         if (data.status === 201) {
           toast.success(data.data);
           handleClose();

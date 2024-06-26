@@ -9,7 +9,6 @@ const useGetAllProduct = () => {
     setIsLoading(true);
     getRequest("/products")
       .then((products) => {
-        console.log(products.data);
         const productSortedBySellingPrice = products?.data?.sort(
           (a, b) => a.selling_price - b.selling_price
         );

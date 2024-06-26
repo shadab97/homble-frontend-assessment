@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getRequest } from "../axios";
 import { toast } from "react-toastify";
@@ -13,13 +13,14 @@ const useProductDetails = () => {
       setIsLoading(true);
       getRequest(`/products/${id}`)
         .then((products) => {
+          toast.success("product fetched successfully");
           setProduct(products.data);
         })
         .catch(() => {
+          toast.error("Error in fetching product");
           setProduct({});
         })
         .finally(() => {
-          toast.error("Error in fetching product");
           setIsLoading(false);
         });
     }
