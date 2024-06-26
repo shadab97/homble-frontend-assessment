@@ -19,7 +19,7 @@ function AddNewProductModal() {
 
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleAddNeProduct}>

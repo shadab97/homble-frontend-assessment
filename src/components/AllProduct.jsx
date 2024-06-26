@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -7,8 +6,8 @@ import {
   Placeholder,
   Row,
 } from "react-bootstrap";
-import { getRequest } from "../axios";
 import { Link } from "react-router-dom";
+import useGetAllProduct from "../hooks/useGetAllProduct";
 
 const ProductCardLoadingPlaceHolder = () => {
   return [1, 2, 3, 4, 5, 6].map((each) => (
@@ -32,59 +31,35 @@ const ProductCardLoadingPlaceHolder = () => {
   ));
 };
 const ProductCard = ({ product }) => {
-  console.log("products", product);
-  const goToProductDetailsPage = () => {};
   return (
     <Card>
-      <Link to={`products/${product.id}`}>
-        <Card.Img
-          className="object-fit-contain"
-          variant="top"
-          src={product.productImage}
-        />
-        <Card.Body>
+      <Card.Img
+        className="object-fit-contain"
+        variant="top"
+        src={product.productImage}
+      />
+      <Card.Body>
+        <Link to={`products/${product.id}`}>
           <Card.Title className="text-truncate" as="h3">
             {product.name}
           </Card.Title>
-          <Card.Text className="text-truncate lead">
-            {product.description}
-          </Card.Text>
-          <Card.Text
-            as="h4"
-            className="text-success d-flex justify-content-between align-items-center"
-          >
-            {/* <strike>{product.cost_price}</strike>  */}{" "}
-            {/* <Row className=""> */}
-            <p>₹{product.selling_price}</p>
-            <Button size="sm">+Add</Button>
-            {/* </Row> */}
-          </Card.Text>
-        </Card.Body>
-      </Link>
+        </Link>
+        <Card.Text className="text-truncate lead">
+          {product.description}
+        </Card.Text>
+        <Card.Text
+          as="h4"
+          className="text-success d-flex justify-content-between align-items-center"
+        >
+          <p>₹{product.selling_price}</p>
+          {/* <Button size="sm">+</Button> */}
+        </Card.Text>
+      </Card.Body>
     </Card>
   );
 };
 const AllProduct = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getRequest("/products")
-      .then((products) => {
-        console.log(products.data);
-        const productSortedBySellingPrice = products?.data?.sort(
-          (a, b) => a.selling_price - b.selling_price
-        );
-        setProducts(productSortedBySellingPrice);
-      })
-      .catch(() => {
-        setProducts([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const { products, isLoading } = useGetAllProduct();
   return (
     <Container>
       <Row>

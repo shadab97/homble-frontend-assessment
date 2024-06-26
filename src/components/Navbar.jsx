@@ -1,6 +1,6 @@
 import React from "react";
-
 import AddNewProductModal from "./AddNewProductModal";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -8,7 +8,8 @@ const Navbar = () => {
       role="navigation"
       className="d-flex px-4 my-4 justify-content-between"
     >
-      <div className="h4">Homble</div>
+      <h4>Homble</h4>
+
       <AddNewProductModal />
     </section>
   );
