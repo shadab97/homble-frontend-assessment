@@ -1,4 +1,5 @@
 import React from "react";
+import AllProduct from "../components/AllProduct";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <li>Page 2 - Product detail page</li>
         <li>Page 3 - Product dashboard</li>
       </ul>
+      <AllProduct />
     </div>
   );
 };
