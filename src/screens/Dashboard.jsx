@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, Button, Container } from "react-bootstrap";
-import useGetAllProduct from "../hooks/useGetAllProduct";
 import DataTable from "../components/DataTable";
+import useDashboard from "../hooks/useDashboard";
 const headers = [
   {
     label: "ID",
@@ -48,7 +48,7 @@ const headers = [
   },
 ];
 const Dashboard = () => {
-  const { products, isLoading } = useGetAllProduct();
+  const { products, isLoading } = useDashboard();
 
   return (
     <Container>
