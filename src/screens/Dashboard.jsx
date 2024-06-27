@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Button, Container } from "react-bootstrap";
+import { Badge, Button, Container, Spinner } from "react-bootstrap";
 import DataTable from "../components/DataTable";
 import useDashboard from "../hooks/useDashboard";
 const headers = [
@@ -7,7 +7,7 @@ const headers = [
     label: "ID",
     key: "id",
     onClick: ({ key, row }) => {},
-    datatype: "number",
+    datatype: "number", // this help us in sorting data according to datatype default to string
   },
   {
     label: "Name",
@@ -53,13 +53,18 @@ const Dashboard = () => {
   return (
     <Container>
       <p>Dashboard</p>
-      <DataTable
-        showSearch
-        showCheckBox
-        headers={headers}
-        rows={products}
-        caption="Product Data"
-      />
+      {isLoading !== true ? (
+        <DataTable
+          showSearch
+          headers={headers}
+          rows={products}
+          caption="Product Data"
+        />
+      ) : (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
     </Container>
   );
 };
